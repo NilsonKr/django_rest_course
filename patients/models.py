@@ -10,11 +10,17 @@ class Patient(models.Model):
   contact_number = models.CharField(max_length=20, verbose_name='Number')
   email = models.EmailField(verbose_name='E-mail')
 
+  def __str__(self):
+    return f'{self.first_name} {self.last_name}'
+
 class Insurance(models.Model):
   patient = models.ForeignKey(Patient,related_name='insurances',on_delete=models.CASCADE)
   provider = models.CharField(max_length=100, verbose_name='Provider')
   policy_number = models.CharField(max_length=100, verbose_name='Policy Number')
   expiration_date = models.DateField(verbose_name='Expiration Date')
+
+  def __str__(self):
+    return f'{self.provider}'
 
 class MedicalRecord(models.Model):
   patient = models.ForeignKey(Patient, related_name='medical_records', on_delete=models.CASCADE)
